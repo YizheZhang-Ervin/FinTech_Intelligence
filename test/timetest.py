@@ -18,12 +18,19 @@ def timetest1(func1, **others):
     name1 = others.get('name1', 'f1')
     global f1
     f1 = func1
-    if len(value) > 1:
-        t1 = Timer(f'f1({value[0]},{value[1]})', "from test.timetest import f1").timeit(nums)
+    if type(value) == str:
+        p1 = f'f1("{value}")'
+        rst1 = func1(value)
+    elif type(value) == int or type(value) == float or type(value) == complex or type(value) == list:
+        p1 = f'f1({value})'
+        rst1 = func1(value)
+    elif len(value) > 1:
+        p1 = f'f1({value[0]},{value[1]})'
         rst1 = func1(value[0], value[1])
     else:
-        t1 = Timer(f'f1({value})', "from test.timetest import f1").timeit(nums)
+        p1 = f'f1({value})'
         rst1 = func1(value)
+    t1 = Timer(p1, "from test.timetest import f1").timeit(nums)
     print(f'{name1} Value:{rst1}, Time:{t1}')
 
 
@@ -45,6 +52,11 @@ def timetest2(func1, func2, **others):
         p2 = f'f2("{value}")'
         rst1 = func1(value)
         rst2 = func2(value)
+    elif type(value) == int or type(value) == float or type(value) == complex or type(value) == list:
+        p1 = f'f1({value})'
+        p2 = f'f2({value})'
+        rst1 = func1(value)
+        rst2 = func2(value)
     elif len(value) > 1:
         p1 = f'f1({value[0]},{value[1]})'
         p2 = f'f2({value[0]},{value[1]})'
@@ -55,6 +67,7 @@ def timetest2(func1, func2, **others):
         p2 = f'f2({value})'
         rst1 = func1(value)
         rst2 = func2(value)
+
     t1 = Timer(p1, "from test.timetest import f1").timeit(nums)
     t2 = Timer(p2, "from test.timetest import f2").timeit(nums)
     print(f'{name1} Value:{rst1}, Time:{t1} \n{name2} Value:{rst2}, Time:{t2}')
