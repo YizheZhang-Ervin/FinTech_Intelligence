@@ -27,5 +27,5 @@ def find2(target, array):
 
 
 if __name__ == '__main__':
-    from test.timetest import timetest2
+    from Test.timetest import timetest2
     timetest2(find1, find2, value=(5, [[1, 2, 3], [4, 5, 6]]), nums=1, name1='Loop*2', name2='RightTop')

@@ -19,6 +19,6 @@ def replaceSpace2(s):
 
 
 if __name__ == '__main__':
-    from test.timetest import timetest2
+    from Test.timetest import timetest2
 
     timetest2(replaceSpace1, replaceSpace2, value="haha haha haha", nums=1, name1='Replace', name2='Implement by self')

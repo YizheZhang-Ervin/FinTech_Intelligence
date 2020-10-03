@@ -29,7 +29,7 @@ def reorderArray2(array):
 
 
 if __name__ == '__main__':
-    from test.timetest import timetest2
+    from Test.timetest import timetest2
 
     arr = [1, 3,2,4,5]
     timetest2(reorderArray1, reorderArray2, value=arr, nums=1, name1='ExtraSpace', name2='ExtraTime')

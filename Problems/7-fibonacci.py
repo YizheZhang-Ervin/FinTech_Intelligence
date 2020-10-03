@@ -31,7 +31,7 @@ def fib2(n):
 
 
 if __name__ == '__main__':
-    from test.timetest import timetest1, timetest2
+    from Test.timetest import timetest1, timetest2
 
     timetest2(fib1, fib2, value=30, nums=2, name1='Loop', name2='Recursion')
     timetest1(fib1, value=30, nums=2, name1='Loop')

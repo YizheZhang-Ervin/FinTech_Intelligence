@@ -30,7 +30,7 @@ def timetest1(func1, **others):
     else:
         p1 = f'f1({value})'
         rst1 = func1(value)
-    t1 = Timer(p1, "from test.timetest import f1").timeit(nums)
+    t1 = Timer(p1, "from Test.timetest import f1").timeit(nums)
     print(f'{name1} Value:{rst1}, Time:{t1}')
 
 
@@ -68,6 +68,6 @@ def timetest2(func1, func2, **others):
         rst1 = func1(value)
         rst2 = func2(value)
 
-    t1 = Timer(p1, "from test.timetest import f1").timeit(nums)
-    t2 = Timer(p2, "from test.timetest import f2").timeit(nums)
+    t1 = Timer(p1, "from Test.timetest import f1").timeit(nums)
+    t2 = Timer(p2, "from Test.timetest import f2").timeit(nums)
     print(f'{name1} Value:{rst1}, Time:{t1} \n{name2} Value:{rst2}, Time:{t2}')

@@ -31,6 +31,6 @@ def jumpfloor2(number):
 
 
 if __name__ == '__main__':
-    from test.timetest import timetest1
+    from Test.timetest import timetest1
     timetest1(jumpfloor, value=30, nums=2, name1='Jumpfloor1')
     timetest1(jumpfloor2, value=30, nums=2, name1='Jumpfloor2')

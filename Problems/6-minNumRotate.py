@@ -29,7 +29,7 @@ def minNumRotateArray2(rotateArray):
 
 
 if __name__ == '__main__':
-    from test.timetest import timetest2
+    from Test.timetest import timetest2
 
     arr = [3, 4, 5, 1, 2]
     arr2 = [6501, 6828, 6963, 7036, 7422, 7674, 8146, 8468, 8704, 8717, 9170, 9359, 9719, 9895, 9896, 9913, 9962, 154,
