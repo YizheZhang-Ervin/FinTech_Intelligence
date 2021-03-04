@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# self test
+/Image
+/Audio
+Image/
+Audio/
+.Image
+.Audio
