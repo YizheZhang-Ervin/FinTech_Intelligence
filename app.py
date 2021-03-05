@@ -71,15 +71,15 @@ class ImageAPI(Resource):
     # http://127.0.0.1:5000/api/image/
     # 传{"key":"值"}
     def post(self):
-        try:
-            args = parser.parse_args()
-            key = eval(args['key'])
-            key = base64.b64decode(key[22:])
-            result,mostLikely,aiVoice = faceRecognition(key)
-            jsonObj = {"result":result,"likely":mostLikely,"aiVoice":aiVoice}
-            return jsonify(jsonObj)
-        except Exception:
-            return jsonify({"error":"error"})
+        # try:
+        args = parser.parse_args()
+        key = eval(args['key'])
+        key = base64.b64decode(key[22:])
+        result,mostLikely,aiVoice = faceRecognition(key)
+        jsonObj = {"result":result,"likely":mostLikely,"aiVoice":aiVoice}
+        return jsonify(jsonObj)
+        # except Exception:
+        #     return jsonify({"error":"error"})
 api.add_resource(ImageAPI, '/api/image/')
 
 def faceRecognition(face):
