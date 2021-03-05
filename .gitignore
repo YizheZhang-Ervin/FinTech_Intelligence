@@ -129,9 +129,5 @@ dmypy.json
 .pyre/
 
 # self test
-/Image
-/Audio
 Image/
 Audio/
-.Image
-.Audio
