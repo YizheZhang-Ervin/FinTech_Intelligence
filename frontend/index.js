@@ -168,13 +168,12 @@ class Section001 extends React.Component {
                     console.log("bakend error");
                 } else {
                     let iframe = document.getElementById("iframe001");
-                    if(response.data.result=="You"){
+                    if(response.data.result!="NOBODY"){
                         let video = document.getElementById("video001");
                         video.style.display = "none";
-                        iframe.srcdoc = "通过身份验证";
+                        iframe.srcdoc = `Welcome,${response.data.result}! Please click to speak!`;
                         const record = document.getElementById('start');
                         record.disabled = false;
-                        console.log(window.mediaStreamTrack)
                     }else{
                         iframe.srcdoc = "未通过身份验证";
                     }

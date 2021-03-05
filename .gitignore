@@ -129,5 +129,8 @@ dmypy.json
 .pyre/
 
 # self test
+!Audio/
+/Audio/audio.webm
+/Audio/audio.wav
 Image/
-Audio/
+!/Image/faceData.py

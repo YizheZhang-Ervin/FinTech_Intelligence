@@ -19,6 +19,6 @@ public class MainActivity extends AppCompatActivity {
         WebView webView= findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://ervinzhang.pythonanywhere.com/");
+        webView.loadUrl("https://eggroup.herokuapp.com/");
     }
 }

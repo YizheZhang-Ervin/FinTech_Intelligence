@@ -6,6 +6,8 @@ import face_recognition as fr
 import base64
 import os
 from imp import reload
+import numpy as np
+from Image import faceData
 
 # Initialize Flask
 app = Flask(__name__,static_folder='frontend',template_folder='frontend',static_url_path="")
@@ -68,15 +70,15 @@ class ImageAPI(Resource):
     # http://127.0.0.1:5000/api/image/
     # 传{"key":"值"}
     def post(self):
-        try:
-            args = parser.parse_args()
-            key = eval(args['key'])
-            key = base64.b64decode(key[22:])
-            result = faceRecognition(key)
-            jsonObj = {"result":result}
-            return jsonify(jsonObj)
-        except Exception:
-            return jsonify({"error":"error"})
+        # try:
+        args = parser.parse_args()
+        key = eval(args['key'])
+        key = base64.b64decode(key[22:])
+        result = faceRecognition(key)
+        jsonObj = {"result":result}
+        return jsonify(jsonObj)
+        # except Exception:
+        #     return jsonify({"error":"error"})
 api.add_resource(ImageAPI, '/api/image/')
 
 def faceRecognition(face):
@@ -84,17 +86,25 @@ def faceRecognition(face):
     img_path = "Image/test.jpg"
     with open(img_path,"wb") as f:
         f.write(face)
-    
-    trainImg = fr.load_image_file("Image/train.jpg")
+
+    # trainImg = fr.load_image_file("Image/train.jpg")
     testImg = fr.load_image_file("Image/test.jpg")
 
-    trainImg_encoding = fr.face_encodings(trainImg)[0]
+    # trainImg_encoding = fr.face_encodings(trainImg)[0]
+    ZYZ = np.array(faceData.ZYZ)
+    HSJ = np.array(faceData.HSJ)
+    SXK = np.array(faceData.SXK)
+    CLJ = np.array(faceData.CLJ)
+    LQJ = np.array(faceData.LQJ)
+    WZQ = np.array(faceData.WZQ)
     testImg_encoding = fr.face_encodings(testImg)[0]
 
-    results = fr.compare_faces([trainImg_encoding], testImg_encoding )
-    labels = ["You"]
-
-    return "".join([labels[i] for i in range(0, len(results)) if results[i] == True])
+    results = fr.compare_faces([ZYZ,HSJ,SXK,CLJ,LQJ,WZQ],testImg_encoding)
+    labels = ["ZYZ","HSJ","SXK","CLJ","LQJ","WZQ"]
+    for i in range(0,len(results)):
+        if results[i] == True:
+            return labels[i]
+    return "NOBODY"
 
 if __name__ == '__main__':
     app.run(debug=True)
