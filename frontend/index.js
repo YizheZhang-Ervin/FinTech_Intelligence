@@ -186,7 +186,7 @@ class Section001 extends React.Component {
                         let aiVoice = document.getElementById("aiVoice");
                         video.style.display = "none";
                         iframe.srcdoc = `欢迎回来,${response.data.result}! (相似度:${response.data.likely})`;
-                        // 二进制转base64
+
                         aiVoice.src = `data:audio/mp3;base64,${response.data.aiVoice}`;
                         aiVoice.play();
                         const record = document.getElementById('start');

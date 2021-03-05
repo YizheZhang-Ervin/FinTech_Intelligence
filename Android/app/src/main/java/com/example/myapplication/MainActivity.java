@@ -3,6 +3,8 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -38,8 +40,21 @@ public class MainActivity extends AppCompatActivity {
         // 支持缩放
         settings.setSupportZoom(true);
 
+        settings.setBlockNetworkImage(false);
+        settings.setPluginState(WebSettings.PluginState.ON);
+        settings.setLoadsImagesAutomatically(true);
+        settings.setAppCacheEnabled(true);
+        settings.setLoadsImagesAutomatically(true);
 
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient(){
+            public boolean shouldOverrideUrlLoading(WebView  view, String url) {
+                if(url.endsWith(".mp4") || url.endsWith("some other supported type")){
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    return true;
+                }else return false;
+            }
+        });
         webView.loadUrl("https://eggroup.herokuapp.com/");
     }
 }

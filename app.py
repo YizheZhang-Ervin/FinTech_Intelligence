@@ -120,10 +120,9 @@ def faceRecognition(face):
     mostNearly = min(results)
     people = labels[list(results).index(mostNearly)]
 
-    likely = round(1- mostNearly,3)
-    likely *= 100
+    likely = str((1- mostNearly)*100)[:5]+"%"
     
-    sentence = f"欢迎回来{people},相似程度:百分之{likely}"
+    sentence = f"欢迎回来{people},相似程度:百分之{likely[:5]}"
     tts = gTTS(text=sentence,lang="zh")
     tts.save("Audio/sentence.mp3")
     
@@ -131,7 +130,8 @@ def faceRecognition(face):
     aiVoice = ""
     with open("Audio/sentence.mp3","rb") as f:
         aiVoice = f.read()
-    return people,likely,base64.b64encode(aiVoice)
+
+    return people,likely,str(base64.b64encode(aiVoice))[2:-1]
 
 if __name__ == '__main__':
     app.run()
