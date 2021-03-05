@@ -12,6 +12,7 @@ from gtts import gTTS
 
 # Initialize Flask
 app = Flask(__name__,static_folder='frontend',template_folder='frontend',static_url_path="")
+
 api = Api(app)
 
 # Cross Domain
@@ -133,4 +134,4 @@ def faceRecognition(face):
     return people,likely,base64.b64encode(aiVoice)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

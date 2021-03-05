@@ -11,5 +11,9 @@ WXapp / Android / IOS / Web
 Speech Recognition  
 Face Recognition  
   
+## Deploy
+pipreqs ./  
+
 ## Run  
+pip install -r requirements.txt  
 python -m flask run  
