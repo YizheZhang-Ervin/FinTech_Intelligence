@@ -71,20 +71,21 @@ class ImageAPI(Resource):
     # http://127.0.0.1:5000/api/image/
     # 传{"key":"值"}
     def post(self):
-        # try:
-        args = parser.parse_args()
-        key = eval(args['key'])
-        key = base64.b64decode(key[22:])
-        result,mostLikely,aiVoice = faceRecognition(key)
-        jsonObj = {"result":result,"likely":mostLikely,"aiVoice":aiVoice}
-        return jsonify(jsonObj)
-        # except Exception:
-        #     return jsonify({"error":"error"})
+        try:
+            args = parser.parse_args()
+            key = eval(args['key'])
+            key = base64.b64decode(key[22:])
+            result,mostLikely,aiVoice = faceRecognition(key)
+            jsonObj = {"result":result,"likely":mostLikely,"aiVoice":aiVoice}
+            return jsonify(jsonObj)
+        except Exception:
+            return jsonify({"error":"error"})
 api.add_resource(ImageAPI, '/api/image/')
 
 def faceRecognition(face):
     # 二进制图片写入jpg文件
     img_path = "Image/test.jpg"
+
     with open(img_path,"wb") as f:
         f.write(face)
 
@@ -98,7 +99,12 @@ def faceRecognition(face):
     CLJ = np.array(faceData.CLJ)
     LQJ = np.array(faceData.LQJ)
     WZQ = np.array(faceData.WZQ)
-    testImg_encoding = fr.face_encodings(testImg)[0]
+
+    testImg_encoding = fr.face_encodings(testImg)
+    if testImg_encoding:
+        testImg_encoding = testImg_encoding[0]
+    else:
+        return "NOBODY",0,0
 
     labels = ["张以哲","何仕杰","石烜逵","陈灵健","陆其杰","王祉祈"]
 

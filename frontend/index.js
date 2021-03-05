@@ -4,12 +4,20 @@ class Section001 extends React.Component {
         this.state = {
             w100: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
             hIframe: parseInt(window.innerHeight || document.documentElement.clientHeight || document.body.clientHeights) - 194,
+            verificationTimer:null,
         };
     }
 
     componentDidMount(){
         this.recordAudio();
         this.getCamera();
+        this.setState({
+            "verificationTimer":setInterval(() => {
+                let takephoto = document.getElementById("takephoto");
+                takephoto.click();
+            }, 2000)
+        })
+
     }
     // 动态改值
     changeCoding(e) {
@@ -20,7 +28,9 @@ class Section001 extends React.Component {
 
     // 传audio给后台,接收字符串
     postAudio(params) {
-        axios.post(`http://127.0.0.1:5000/api/audio/`, { key: JSON.stringify(params) })
+        let urlAudio = `http://127.0.0.1:5000/api/audio/`;
+        // let urlAudio = `/api/audio/`;
+        axios.post(urlAudio, { key: JSON.stringify(params) })
             .then((response) => {
                 if (response.data.error == "error") {
                     console.log("bakend error");
@@ -143,7 +153,7 @@ class Section001 extends React.Component {
         } else {
             var promise = navigator.mediaDevices.getUserMedia(constraints);
         }
-        promise.then(function (MediaStream) {
+        promise.then((MediaStream)=> {
             video.srcObject = MediaStream;
             video.play();
         }).catch(function (PermissionDeniedError) {
@@ -162,13 +172,16 @@ class Section001 extends React.Component {
 
     // 传image给后台,接收字符串
     postImage(params) {
-        axios.post(`http://127.0.0.1:5000/api/image/`, { key: JSON.stringify(params) })
+        let urlImg = `http://127.0.0.1:5000/api/image/`;
+        // let urlImg = `/api/image/`;
+        axios.post(urlImg, { key: JSON.stringify(params) })
             .then((response) => {
                 if (response.data.error == "error") {
                     console.log("bakend error");
                 } else {
                     let iframe = document.getElementById("iframe001");
                     if(response.data.result!="NOBODY"){
+                        clearInterval(this.state.verificationTimer);
                         let video = document.getElementById("video001");
                         let aiVoice = document.getElementById("aiVoice");
                         video.style.display = "none";
@@ -179,7 +192,7 @@ class Section001 extends React.Component {
                         const record = document.getElementById('start');
                         record.disabled = false;
                     }else{
-                        iframe.srcdoc = "未通过身份验证";
+                        iframe.srcdoc = "请点击顶部摄像头进行身份验证";
                     }
                 }
             },
@@ -199,7 +212,7 @@ class Section001 extends React.Component {
                     <canvas id="canvas001" height="500" width="500"></canvas>
                 </section>
                 <section className="top flex">
-                    <button className="btn" onClick={()=>{this.takePhoto()}}></button>
+                    <button id="takephoto" className="btn" onClick={()=>{this.takePhoto()}}></button>
                 </section>
                 {/* 中间内容界面 */}
                 <section className="middle flex">
