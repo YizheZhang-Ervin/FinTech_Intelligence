@@ -170,8 +170,12 @@ class Section001 extends React.Component {
                     let iframe = document.getElementById("iframe001");
                     if(response.data.result!="NOBODY"){
                         let video = document.getElementById("video001");
+                        let aiVoice = document.getElementById("aiVoice");
                         video.style.display = "none";
-                        iframe.srcdoc = `Welcome,${response.data.result}! Please click to speak!`;
+                        iframe.srcdoc = `欢迎回来,${response.data.result}! (相似度:${response.data.likely})`;
+                        // 二进制转base64
+                        aiVoice.src = `data:audio/mp3;base64,${response.data.aiVoice}`;
+                        aiVoice.play();
                         const record = document.getElementById('start');
                         record.disabled = false;
                     }else{
@@ -188,6 +192,8 @@ class Section001 extends React.Component {
     render() {
         return (
             <div className="whole">
+                {/* 声音 */}
+                <audio id="aiVoice" hidden></audio>
                 <section className="flex center">
                     <video id="video001" height="500" width="500"></video>
                     <canvas id="canvas001" height="500" width="500"></canvas>

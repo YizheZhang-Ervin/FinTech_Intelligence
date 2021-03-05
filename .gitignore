@@ -132,5 +132,4 @@ dmypy.json
 !Audio/
 /Audio/audio.webm
 /Audio/audio.wav
-Image/
-!/Image/faceData.py
+!Image/

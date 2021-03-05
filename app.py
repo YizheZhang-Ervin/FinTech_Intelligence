@@ -8,6 +8,7 @@ import os
 from imp import reload
 import numpy as np
 from Image import faceData
+from gtts import gTTS
 
 # Initialize Flask
 app = Flask(__name__,static_folder='frontend',template_folder='frontend',static_url_path="")
@@ -74,8 +75,8 @@ class ImageAPI(Resource):
         args = parser.parse_args()
         key = eval(args['key'])
         key = base64.b64decode(key[22:])
-        result = faceRecognition(key)
-        jsonObj = {"result":result}
+        result,mostLikely,aiVoice = faceRecognition(key)
+        jsonObj = {"result":result,"likely":mostLikely,"aiVoice":aiVoice}
         return jsonify(jsonObj)
         # except Exception:
         #     return jsonify({"error":"error"})
@@ -99,12 +100,31 @@ def faceRecognition(face):
     WZQ = np.array(faceData.WZQ)
     testImg_encoding = fr.face_encodings(testImg)[0]
 
-    results = fr.compare_faces([ZYZ,HSJ,SXK,CLJ,LQJ,WZQ],testImg_encoding)
-    labels = ["ZYZ","HSJ","SXK","CLJ","LQJ","WZQ"]
-    for i in range(0,len(results)):
-        if results[i] == True:
-            return labels[i]
-    return "NOBODY"
+    labels = ["张以哲","何仕杰","石烜逵","陈灵健","陆其杰","王祉祈"]
+
+    # results = fr.compare_faces([ZYZ,HSJ,SXK,CLJ,LQJ,WZQ],testImg_encoding,tolerance=0.39)
+    # print(results)
+    # for i in range(0,len(results)):
+    #     if results[i] == True:
+    #         return labels[i]
+    # return "NOBODY"
+
+    results = fr.face_distance([ZYZ,HSJ,SXK,CLJ,LQJ,WZQ],testImg_encoding)
+    mostNearly = min(results)
+    people = labels[list(results).index(mostNearly)]
+
+    likely = round(1- mostNearly,3)
+    likely *= 100
+    
+    sentence = f"欢迎回来{people},相似程度:百分之{likely}"
+    tts = gTTS(text=sentence,lang="zh")
+    tts.save("Audio/sentence.mp3")
+    
+    # 读取音频，转为二进制传到前端
+    aiVoice = ""
+    with open("Audio/sentence.mp3","rb") as f:
+        aiVoice = f.read()
+    return people,likely,base64.b64encode(aiVoice)
 
 if __name__ == '__main__':
     app.run(debug=True)
