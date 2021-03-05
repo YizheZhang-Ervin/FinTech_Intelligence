@@ -28,8 +28,8 @@ class Section001 extends React.Component {
 
     // 传audio给后台,接收字符串
     postAudio(params) {
-        let urlAudio = `http://127.0.0.1:5000/api/audio/`;
-        // let urlAudio = `/api/audio/`;
+        // let urlAudio = `http://127.0.0.1:5000/api/audio/`;
+        let urlAudio = `/api/audio/`;
         axios.post(urlAudio, { key: JSON.stringify(params) })
             .then((response) => {
                 if (response.data.error == "error") {
@@ -172,8 +172,8 @@ class Section001 extends React.Component {
 
     // 传image给后台,接收字符串
     postImage(params) {
-        let urlImg = `http://127.0.0.1:5000/api/image/`;
-        // let urlImg = `/api/image/`;
+        // let urlImg = `http://127.0.0.1:5000/api/image/`;
+        let urlImg = `/api/image/`;
         axios.post(urlImg, { key: JSON.stringify(params) })
             .then((response) => {
                 if (response.data.error == "error") {
