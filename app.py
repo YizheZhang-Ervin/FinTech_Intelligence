@@ -34,15 +34,15 @@ class AudioAPI(Resource):
     # http://127.0.0.1:5000/api/audio/
     # 传{"key":"值"}
     def post(self):
-        try:
-            args = parser.parse_args()
-            key = eval(args['key'])
-            key = base64.b64decode(key[35:])
-            result = audioRecognition(key)
-            jsonObj = {"result":result}
-            return jsonify(jsonObj)
-        except Exception:
-            return jsonify({"error":"error"})
+        # try:
+        args = parser.parse_args()
+        key = eval(args['key'])
+        key = base64.b64decode(key[35:])
+        result = audioRecognition(key)
+        jsonObj = {"result":result}
+        return jsonify(jsonObj)
+        # except Exception:
+        #     return jsonify({"error":"error"})
 api.add_resource(AudioAPI, '/api/audio/')
 
 def audioRecognition(audio):
@@ -58,6 +58,7 @@ def audioRecognition(audio):
         os.remove(wav_path)
     command = "ffmpeg -loglevel quiet -i {} -ac {} -ar {} {}".format(webm_path, channel, sampling_rate, wav_path)
     os.system(command)
+    
     # 语音识别
     r = sr.Recognizer()
     audio2 = sr.AudioFile(wav_path)

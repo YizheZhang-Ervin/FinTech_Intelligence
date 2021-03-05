@@ -207,11 +207,14 @@ class Section001 extends React.Component {
             <div className="whole">
                 {/* 声音 */}
                 <audio id="aiVoice" hidden></audio>
+                {/* 正中画面 */}
                 <section className="flex center">
                     <video id="video001" height="500" width="500"></video>
                     <canvas id="canvas001" height="500" width="500"></canvas>
                 </section>
+                {/* 顶部 */}
                 <section className="top flex">
+                    <h1>EGGroup AI</h1>
                     <button id="takephoto" className="btn" onClick={()=>{this.takePhoto()}}></button>
                 </section>
                 {/* 中间内容界面 */}
