@@ -2,6 +2,7 @@ Flask==1.1.2
 Flask_RESTful==0.3.8
 Flask_Cors==3.0.9
 numpy
+pandas
 cmake
 dlib
 SpeechRecognition

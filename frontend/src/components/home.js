@@ -1,23 +1,23 @@
 import React from 'react';
 import { Menu } from 'antd';
-import Recognition from "./recognition";
-import Translator from "./translator";
-import Videochat from "./videochat";
+import Login from "./login";
+import Visualization from "./visualization";
+import Tools from "./tools";
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            menuSelected:"tr",
-            userInterface:"tr"
+            menuSelected: "visual",
+            userInterface: "visual"
         };
     }
 
     // 改变显示的组件
-    changeShow =(e)=> {
+    changeShow = (e) => {
         this.setState({
             userInterface: e.key,
-            menuSelected:e.key,
+            menuSelected: e.key,
         })
     }
 
@@ -25,12 +25,12 @@ class Home extends React.Component {
         // change component show
         let UserInterface = null;
         let ui = this.state.userInterface;
-        if(ui==="rec"){
-            UserInterface = <Recognition ></Recognition>
-        }else if(ui==="tr"){
-            UserInterface = <Translator ></Translator>
-        }else{
-            UserInterface = <Videochat ></Videochat>
+        if (ui === "visual") {
+            UserInterface = <Visualization ></Visualization>
+        } else if (ui === "tools") {
+            UserInterface = <Tools ></Tools>
+        } else if (ui === "login") {
+            UserInterface = <Login ></Login>
         }
         return (
             <div>
@@ -39,14 +39,14 @@ class Home extends React.Component {
                     <Menu theme="dark" mode="horizontal" onClick={this.changeShow} selectedKeys={this.state.menuSelected}
                         onChange={this.changeShow}
                     >
-                        <Menu.Item key="rec">
-                            Recognition
+                        <Menu.Item key="visual">
+                            Home
                         </Menu.Item>
-                        <Menu.Item key="tr">
-                            Translator
+                        <Menu.Item key="tools">
+                            Tools
                         </Menu.Item>
-                        <Menu.Item key="vc">
-                            Videochat
+                        <Menu.Item key="login">
+                            Admin
                         </Menu.Item>
                     </Menu>
                     {/* change components*/}

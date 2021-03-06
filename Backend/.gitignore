@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # self test
-!Audio/
 /Audio/audio.webm
 /Audio/audio.wav
-!Image/
+/Audio/sentence.mp3
+/Image/test.jpg

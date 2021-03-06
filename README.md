@@ -1,14 +1,14 @@
-# EGGroup AI    
-Antd + React CLI + Flask RESTful + Sqlite  
+# EZ Intelligence      
+Antd + React + Flask RESTful + Echarts + Sqlite  
 
 ## Features  
+- Admin  
 Speech Recognition (Voice to word / Word to Voice)  
 Face Recognition  
+- Tools  
 Translator  
-WebRTC(VideoChat)  
-  
-## Deploy  
-pipreqs ./  
+- Visualization  
+Echarts(CandleStick)  
   
 ## Run  
 cd frontend  
@@ -17,7 +17,8 @@ npm run build
 npm run start  
   
 cd backend  
-pip install -r requirements.txt  
+output requirements: pipreqs ./  
+install requirements: pip install -r requirements.txt  
 python -m flask run  
   
 Linux Shell  
