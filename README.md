@@ -2,8 +2,9 @@
 Antd + React + Flask RESTful + Echarts + Sqlite  
   
 ## Features   
-- Home(Visualization) : Echarts(CandleStick)   
-- Admin: Speech Recognition (Voice to word / Word to Voice)  + Face Recognition  
+- Home(Visualization) : Echarts(CandleStick) + DataDisplay     
+- Login: Speech Recognition (Voice to word / Word to Voice)  + Face Recognition  
+- Admin: shell command prompt  
 - Tools : Translator  
   
 ## Infrastructure  

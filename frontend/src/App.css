@@ -1,3 +1,4 @@
 .bordered{
     border: 1px dashed white;
+    z-index: 1;
 }

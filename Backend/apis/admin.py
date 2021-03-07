@@ -11,11 +11,11 @@ class AdminAPI(Resource):
     # http://127.0.0.1:5000/api/admin/
     # 传{"key":"值"}
     def post(self):
-        # try:
-        args = parser.parse_args()
-        commands = eval(args['commands'])
-        rst = os.popen(commands).read()
-        jsonObj = {"result":rst}
-        return jsonify(jsonObj)
-        # except Exception:
-        #     return jsonify({"error":"error"})
+        try:
+            args = parser.parse_args()
+            commands = eval(args['commands'])
+            rst = os.popen(commands).read()
+            jsonObj = {"result":rst}
+            return jsonify(jsonObj)
+        except Exception:
+            return jsonify({"error":"error"})

@@ -42,6 +42,11 @@ class Login extends React.Component {
                 } else {
                     const status = document.getElementById("status");
                     status.innerText = response.data.result;
+                    let canvas = document.getElementById("canvas001");
+                    if(status.innerText==="跳转后台" && canvas.hidden===false){
+                        let adminbtn = document.getElementById("adminbtn");
+                        adminbtn.click();
+                    }
                 }
             },
                 function (err) {
@@ -145,6 +150,7 @@ class Login extends React.Component {
     // 打开摄像机
     getCamera() {
         let video = document.getElementById("video001");
+        // let video2 = document.getElementById("video002");
         let constraints = {
             video: { width: 300, height: 300 },
             audio: false
@@ -209,7 +215,7 @@ class Login extends React.Component {
             justifyContent: "center",
             minHeight: "100vh",
             flexDirection: "column",
-            backgroundImage: "linear-gradient(45deg, steelblue, white)"
+            backgroundImage: "linear-gradient(45deg, steelblue, white)",
         };
         const voiceInput = {
             position: "relative",
@@ -235,6 +241,7 @@ class Login extends React.Component {
                     <Button id="takephoto" onClick={() => { this.takePhoto() }} hidden />
                     <audio id="aiVoice" hidden></audio>
                 </section>
+                <Button id="adminbtn" type="link" href="/admin" hidden></Button>
             </div>
         );
     }

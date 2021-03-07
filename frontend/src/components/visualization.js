@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import moment from "moment";
-import { DatePicker, Card, Input } from 'antd';
+import { DatePicker, Card, Input, Drawer, Button, Table } from 'antd';
 import 'echarts/lib/chart/candlestick';
 import ReactEcharts from 'echarts-for-react';
 const { Search } = Input;
@@ -13,7 +13,8 @@ class Visualization extends React.Component {
 		this.state = {
 			stockData: [],
 			stockId: 1,
-			dates: [moment("2019-01-01"), moment("2019-01-15")]
+			dates: [moment("2019-01-01"), moment("2019-01-15")],
+			drawerVisible: false,
 		};
 	}
 
@@ -26,6 +27,11 @@ class Visualization extends React.Component {
 		this.setState({
 			[key]: val
 		});
+	}
+
+	// 抽屉打开关闭
+	showDrawer() {
+		this.changeVal("drawerVisible", !this.state.drawerVisible);
 	}
 
 	// 限制日期长度
@@ -348,15 +354,77 @@ class Visualization extends React.Component {
 		return option
 	}
 
+	// 表格数据处理
+	transformTableData(data){
+		// [['2013/1/24', 2320.26, 2320.26, 2287.3, 2362.94,86160000],
+		//  ['2013/1/25', 2300, 2291.3, 2288.26, 2308.38,79330000]]
+		let newData = [];
+		for(let i=0;i<data.length;i++){
+			let temp = {};
+			temp["date"] = data[i][0];
+			temp["open"] = data[i][1];
+			temp["close"] = data[i][2];
+			temp["low"] = data[i][3];
+			temp["high"] = data[i][4];
+			temp["volume"] = data[i][5];
+			newData.push(temp);
+		}
+		return newData;
+	}
+
 	render() {
+		const columns = [
+			{
+				title: 'Date',
+				dataIndex: 'date',
+				key: 'date',
+			},
+			{
+				title: 'Open',
+				dataIndex: 'open',
+				key: 'open',
+			},
+			{
+				title: 'Close',
+				dataIndex: 'close',
+				key: 'close',
+			},
+			{
+				title: 'Low',
+				dataIndex: 'low',
+				key: 'low',
+			},
+			{
+				title: 'High',
+				dataIndex: 'high',
+				key: 'high',
+			},
+			{
+				title: 'Volume',
+				dataIndex: 'volume',
+				key: 'volume',
+			},
+		];
+		const tableData = this.transformTableData(this.state.stockData);
 		return (
 			<div>
-				<Card title="Gold Futures Prices">
+				<Drawer
+					title="Raw Data"
+					placement="right"
+					visible={this.state.drawerVisible}
+					onClose={() => { this.showDrawer() }}
+					width="60vw"
+				>
+					<Table columns={columns} dataSource={tableData} />
+				</Drawer>
+				<Card title="Gold Futures Prices CandleStick">
 					<Card
 						hoverable='true'
 						style={{ marginTop: 16 }}
 						type="inner"
-						title="CandleStick"
+						title={
+							<Button type="ghost" onClick={() => { this.showDrawer() }}>View Raw Data</Button>
+						}
 						extra={
 							<Search
 								placeholder="Stock Code"
@@ -370,6 +438,7 @@ class Visualization extends React.Component {
 						}
 					>
 						<RangePicker size="large"
+							allowClear={false}
 							onChange={(dateMt) => { this.changeVal("dates", dateMt) }}
 							onCalendarChange={(dateMt) => { this.changeVal("dates", dateMt) }}
 							value={this.state.dates}
