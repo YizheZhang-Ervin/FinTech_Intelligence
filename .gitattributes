@@ -1,7 +1,8 @@
+*.html linguist-language=python;
+*.css linguist-language=python;
+*.js linguist-language=python;
 *.md linguist-language=python;
 *.xml linguist-language=python;
 *.json linguist-language=python;
 *.gitignore linguist-language=python;
 *.txt linguist-language=python;
-*.html linguist-language=python;
-*.css linguist-language=python;
